@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Chhotu sa Gift ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4e4c6b, #3b3a5a, #5a5470);
+      background-size: 300% 300%;
+      animation: bgShift 20s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+      flex-direction: column;
+      transition: background 2s ease;
+    }
+
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .letter {
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      font-size: 20px;
+      line-height: 1.6;
+      color: #fff;
+      position: relative;
+    }
+
+    .highlight {
+      color: #ff8aa0;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .highlight:hover {
+      color: #ff4d6d;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from {transform: translateY(0); opacity: 1;}
+      to {transform: translateY(-150px); opacity: 0;}
+    }
+
+    .envelope-container {
+      margin-top: 20px;
+      perspective: 1000px;
+      display: none;
+    }
+
+    .envelope {
+      width: 200px;
+      height: 120px;
+      background: #ff4d6d;
+      position: relative;
+      border-radius: 6px;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .flap {
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 60px solid #e63950;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top;
+      transition: transform 1s ease;
+      z-index: 3;
+    }
+
+    .open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .letter-paper {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: #fff;
+      transition: top 1s ease;
+      z-index: 1;
+    }
+
+    .open .letter-paper {
+      top: -100px;
+    }
+
+    .cat {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .open .cat {
+      opacity: 1;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -12px); }
+    }
+
+    .hidden-message {
+      display: none;
+      margin-top: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      font-size: 18px;
+      max-width: 500px;
+      line-height: 1.6;
+      color: #333;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .puzzle {
+      margin-top: 20px;
+      display: none;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .dropzone {
+      width: 80px;
+      height: 80px;
+      border: 2px dashed #aaa;
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .draggable {
+      font-size: 40px;
+      cursor: grab;
+    }
+
+    @media(max-width: 768px) {
+      .letter {
+        font-size: 18px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgAudio" loop>
+    <source src="Apocalypse.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="letter" id="letter">
+    <span id="text"></span>
+  </div>
+
+  <div class="puzzle" id="puzzle">
+    Drag the ❤️ into the box to unlock the envelope!<br><br>
+    <span class="draggable" draggable="true">❤️</span>
+    <div class="dropzone" id="dropzone"></div>
+  </div>
+
+  <div class="envelope-container" id="envelopeContainer">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="letter-paper"></div>
+      <img src="cat.png" alt="Cute Cat" class="cat" id="cat">
+    </div>
+  </div>
+
+  <div class="hidden-message" id="hiddenMessage">
+    💌 My Pyaaru sa Bhondu,<br><br>
+    This is where I get to write my own secret message to you.  
+    You make my Har Pal Har Din Har Baat brighter, softer, and endlessly more beautiful.
+So Here's a chhotu sa gift a Part of us ek payara sa Butterfly necklace which reminds you every time that butterflies which we have given to each other and the butterflies you have felt everytime.🫠
+I wish our bond stays stronger just like how strong you are and I wish Me jald se jald tere pass aa saku ❤️   
+    I love you more than words can ever say. ❤️<br><br>
+    – Tumhara Tanveer 
+  </div>
+
+  <script>
+    const message = `My dearest <span class="highlight">Sarkar</span>, 
+
+No matter the distance, you are always close to my heart. 
+Every day, every night, I dream of being with <span class="highlight">you</span>.  
+
+Our story feels like a Cigarettes After Sex song — timeless, dreamy, and beautiful.  
+
+Forever and always,  
+<span class="highlight">your cutie</span>.💌`;
+
+    let i = 0;
+    const textContainer = document.getElementById("text");
+    const puzzle = document.getElementById("puzzle");
+    const dropzone = document.getElementById("dropzone");
+    const envelopeContainer = document.getElementById("envelopeContainer");
+    const envelope = document.getElementById("envelope");
+    const hiddenMessage = document.getElementById("hiddenMessage");
+    const cat = document.getElementById("cat");
+    const bgAudio = document.getElementById("bgAudio");
+
+    function typeWriter() {
+      if (i < message.length) {
+        textContainer.innerHTML = message.slice(0, i+1);
+        i++;
+        setTimeout(typeWriter, 50);
+      } else {
+        setTimeout(()=> puzzle.style.display = "block", 1000);
+      }
+    }
+    typeWriter();
+
+    document.querySelector(".draggable").addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text", "heart");
+    });
+
+    dropzone.addEventListener("dragover", (e)=> e.preventDefault());
+    dropzone.addEventListener("drop", (e)=>{
+      e.preventDefault();
+      if(e.dataTransfer.getData("text")==="heart"){
+        puzzle.style.display = "none";
+        envelopeContainer.style.display = "block";
+      }
+    });
+
+    document.addEventListener("click", (e)=>{
+      if(e.target.classList.contains("highlight")){
+        let heart = document.createElement("div");
+        heart.innerHTML="💖";
+        heart.classList.add("heart");
+        document.body.appendChild(heart);
+        heart.style.left=e.pageX+"px";
+        heart.style.top=e.pageY+"px";
+        setTimeout(()=>heart.remove(),3000);
+      }
+    });
+
+    envelope.addEventListener("click", ()=>{
+      envelope.classList.add("open");
+      bgAudio.play();
+      document.body.style.background = "radial-gradient(circle at center, #1a0a0a, #2b1a2b)";
+      setTimeout(()=>{
+        envelopeContainer.style.display="none";
+        hiddenMessage.style.display="block";
+      },1000);
+    });
+
+    cat.addEventListener("click", ()=>{
+      let paw=document.createElement("div");
+      paw.innerHTML="🐾";
+      paw.style.position="absolute";
+      paw.style.left=(Math.random()*90)+"vw";
+      paw.style.top=(Math.random()*90)+"vh";
+      paw.style.fontSize="24px";
+      document.body.appendChild(paw);
+      setTimeout(()=>paw.remove(),4000);
+      const meow = new Audio("meow.mp3");
+      meow.play().catch(()=>{});
+    });
+  </script>
+</body>
+</html>
